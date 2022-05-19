@@ -13,6 +13,7 @@ import com.mobileprograming.moodtracker.ui.detail.DetailActivity
 import com.mobileprograming.moodtracker.ui.writing.WritingActivity
 import com.mobileprograming.moodtracker.util.IntentKey
 import java.lang.System.currentTimeMillis
+import java.time.LocalDate
 import java.util.*
 import kotlin.system.measureTimeMillis
 
