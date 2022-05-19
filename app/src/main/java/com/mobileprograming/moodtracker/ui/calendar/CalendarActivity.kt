@@ -38,7 +38,7 @@ class CalendarActivity : AppCompatActivity() {
     private fun initList() {
         // 아래 함수를 통해 데이터베이스에서 다이어리 리스트 호출 가능
         // diaryList = myDBHelper.getAllDiary()
-        // 테스트용 다이어리 리스트입니다
+        // 테스트용 다이어리 리스트입니다.
         diaryList = listOf(
             Diary(0,0,"test 0",
                 ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()),
