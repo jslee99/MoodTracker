@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MoodTracker</string>
+    <string name="diary_hint_value">오늘의 하루..</string>
 </resources>
