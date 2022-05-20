@@ -55,8 +55,8 @@ class MyDBHelper(private val context: Context?) :
                     Diary(
                         date,
                         mood,
-                        content,
-                        BitmapFactory.decodeByteArray(image, 0, image.size)
+                        content
+//                        BitmapFactory.decodeByteArray(image, 0, image.size)
                     )
                 )
             } while (cursor.moveToNext())
@@ -71,7 +71,7 @@ class MyDBHelper(private val context: Context?) :
         values.put(DATE, diary.date)
         values.put(MOOD, diary.mood)
         values.put(CONTENT, diary.content)
-        values.put(IMAGE, drawableToByteArray(diary.image))
+//        values.put(IMAGE, drawableToByteArray(diary.image))
 
         val w = writableDatabase
         w.insert(TABLE_NAME, null, values)

@@ -14,8 +14,8 @@ class DetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetailBinding
 
     // 테스트용 Diary 객체
-    private val diary = Diary(0,3, "test content",
-        ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap())
+//    private val diary = Diary(0,3, "test content",
+//        ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

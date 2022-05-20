@@ -44,9 +44,9 @@ class WritingActivity : AppCompatActivity() {
         val bitmap = ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()
 
         // 다이어리 객체 생성
-        val diary = Diary(System.currentTimeMillis(), 0, "test content", bitmap)
+//        val diary = Diary(System.currentTimeMillis(), 0, "test content", bitmap)
 
         // db 삽입
-        myDBHelper.insert(diary)
+//        myDBHelper.insert(diary)
     }
 }

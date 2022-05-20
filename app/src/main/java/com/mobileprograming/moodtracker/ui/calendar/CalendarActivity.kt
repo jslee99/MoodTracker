@@ -58,13 +58,13 @@ class CalendarActivity : AppCompatActivity() {
         // 아래 함수를 통해 데이터베이스에서 다이어리 리스트 호출 가능
         // diaryList = myDBHelper.getAllDiary()
         // 테스트용 다이어리 리스트입니다.
-        diaryList = listOf(
-            Diary(0,0,"test 0",
-                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()),
-            Diary(1,1,"test 1",
-                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()),
-            Diary(2,2,"test 2",
-                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()))
+//        diaryList = listOf(
+//            Diary(0,0,"test 0",
+//                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()),
+//            Diary(1,1,"test 1",
+//                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()),
+//            Diary(2,2,"test 2",
+//                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()))
     }
 
     // 무드를 입력받아 WritingActivity 이동
@@ -167,8 +167,9 @@ class CalendarActivity : AppCompatActivity() {
             //DB에서 mood정보 가지고 와야한다.
             val mood = 0
             val content = ""
-            val image = null
-            adapter.DiaryList.add(Diary(ldate, mood, content, image))
+            val image = ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()
+//            adapter.DiaryList.add(Diary(ldate, mood, content, image))
+            adapter.DiaryList.add(Diary(ldate, mood, content))
         }
         adapter.notifyItemRangeChanged(0, 42)
     }
