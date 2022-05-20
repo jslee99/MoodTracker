@@ -46,14 +46,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
         <TextView
-            android:text="2022"
+            android:id="@+id/yearText"
+            android:text="2021"
             android:textSize="30sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"/>
         <TextView
-            android:text="05"
+            android:id="@+id/monthText"
+            android:text="04"
             android:textSize="30sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
