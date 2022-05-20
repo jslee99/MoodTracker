@@ -158,6 +158,7 @@ class CalendarActivity : AppCompatActivity() {
                 if(dayStr.length == 1){
                     dayStr = "0" + dayStr
                 }
+
                 val formatStr = binding.activityCalendarYearText.text.toString() + "." + binding.activityCalendarMonthText.text.toString() + "." + dayStr
                 val date = sdf.parse(formatStr)
                 ldate = date.time
