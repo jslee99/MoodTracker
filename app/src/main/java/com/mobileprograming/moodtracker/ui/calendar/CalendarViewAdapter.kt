@@ -20,10 +20,7 @@ class CalendarViewAdapter(val DiaryList : ArrayList<Diary>) : RecyclerView.Adapt
 
     var itemClickListener : onItemClickListener? = null
 
-    inner class ViewHolder(val itemView : View) : RecyclerView.ViewHolder(itemView){
-
-        val dayText = itemView.findViewById<TextView>(R.id.dayText)
-        val moodImage = itemView.findViewById<ImageView>(R.id.moodImage)
+    inner class ViewHolder(val binding : CalendarCellBinding) : RecyclerView.ViewHolder(binding.root){
         init{
             itemView.setOnClickListener {
                 itemClickListener?.onItemClick(DiaryList[adapterPosition])
@@ -32,8 +29,8 @@ class CalendarViewAdapter(val DiaryList : ArrayList<Diary>) : RecyclerView.Adapt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.calendar_cell, parent, false)
-        view.layoutParams.height = (parent.height * 0.1666666).toInt()
+        val view = CalendarCellBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        view.root.layoutParams.height = (parent.height * 0.1666666).toInt()
         return ViewHolder(view)
     }
 
@@ -44,18 +41,18 @@ class CalendarViewAdapter(val DiaryList : ArrayList<Diary>) : RecyclerView.Adapt
             val sdf = SimpleDateFormat("dd")
             val date = Date(DiaryList[position].date)
             val dayString = sdf.format(date)
-            holder.dayText.text = dayString
+            holder.binding.calendarCellDayText.text = dayString
             if(DiaryList[position].mood > -1){
                 when(DiaryList[position].mood){
-                    0 -> holder.moodImage.setImageResource(R.drawable.sohappy_0)
-                    1 -> holder.moodImage.setImageResource(R.drawable.happy_1)
-                    2 -> holder.moodImage.setImageResource(R.drawable.ok_2)
-                    3 -> holder.moodImage.setImageResource(R.drawable.angry_3)
-                    4 -> holder.moodImage.setImageResource(R.drawable.sad_4)
+                    0 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.sohappy_0)
+                    1 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.happy_1)
+                    2 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.ok_2)
+                    3 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.angry_3)
+                    4 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.sad_4)
                 }
             }
         }else{
-            holder.dayText.text = ""
+            holder.binding.calendarCellDayText.text = ""
         }
             //mood image 설정
 

@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
         <TextView
-            android:id="@+id/yearText"
+            android:id="@+id/activityCalendarYearText"
             android:text="2021"
             android:textSize="30sp"
             android:layout_width="0dp"
@@ -54,7 +54,7 @@
             android:layout_weight="1"
             android:gravity="center"/>
         <TextView
-            android:id="@+id/monthText"
+            android:id="@+id/activityCalendarMonthText"
             android:text="04"
             android:textSize="30sp"
             android:layout_width="0dp"

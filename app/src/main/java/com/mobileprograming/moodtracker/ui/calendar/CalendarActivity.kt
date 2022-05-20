@@ -111,8 +111,8 @@ class CalendarActivity : AppCompatActivity() {
     private fun setMonthYearTextView(selectedDate : LocalDate){
         val monthF = DateTimeFormatter.ofPattern("MM")
         val yearF = DateTimeFormatter.ofPattern("yyyy")
-        binding.monthText.text = selectedDate.format(monthF)
-        binding.yearText.text = selectedDate.format(yearF)
+        binding.activityCalendarMonthText.text = selectedDate.format(monthF)
+        binding.activityCalendarYearText.text = selectedDate.format(yearF)
     }
 
     //selectedDate에 따라 calendar recycler view 변경
@@ -120,7 +120,7 @@ class CalendarActivity : AppCompatActivity() {
     private fun setRecyclerView(selectedDate: LocalDate){
         //set adapter.DiaryListfd
         adapter.DiaryList.clear()
-        for(i in 1..42){
+        for(i in 0..41){
 
             val DaysInMonthArray = daysInMonthArray(selectedDate)
             var ldate : Long
@@ -130,7 +130,7 @@ class CalendarActivity : AppCompatActivity() {
                 if(dayStr.length == 1){
                     dayStr = "0" + dayStr
                 }
-                val formatStr = binding.yearText.text.toString() + "." + binding.monthText.text.toString() + "." + dayStr
+                val formatStr = binding.activityCalendarYearText.text.toString() + "." + binding.activityCalendarMonthText.text.toString() + "." + dayStr
                 val date = sdf.parse(formatStr)
                 ldate = date.time
             }else{
