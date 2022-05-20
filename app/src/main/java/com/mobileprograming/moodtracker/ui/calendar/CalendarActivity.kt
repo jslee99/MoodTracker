@@ -44,6 +44,7 @@ class CalendarActivity : AppCompatActivity() {
 
         initRecyclerVIew()
         initMonthBtnListener()
+        initMoodImagetListener()
 
         setMonthYearTextView(localDate)
         setRecyclerView(localDate)
@@ -80,10 +81,35 @@ class CalendarActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun initMoodImagetListener(){
+        binding.apply {
+            activityCalendarMood0.setOnClickListener {
+                intentWriteDiary(0)
+            }
+            activityCalendarMood1.setOnClickListener {
+                intentWriteDiary(1)
+            }
+            activityCalendarMood2.setOnClickListener {
+                intentWriteDiary(2)
+            }
+            activityCalendarMood3.setOnClickListener {
+                intentWriteDiary(3)
+            }
+            activityCalendarMood4.setOnClickListener {
+                intentWriteDiary(4)
+            }
+        }
+    }
+
     private fun initRecyclerVIew(){
         //empty adapter 연결, layoutmanager 설정
         adapter = CalendarViewAdapter(ArrayList<Diary>())
         binding.calendarRecylcerView.adapter = adapter
+        adapter.itemClickListener = object : CalendarViewAdapter.onItemClickListener{
+            override fun onItemClick(cellData: Diary) {
+                intentDetail(cellData)
+            }
+        }
         binding.calendarRecylcerView.layoutManager = GridLayoutManager(this, 7)
     }
 
