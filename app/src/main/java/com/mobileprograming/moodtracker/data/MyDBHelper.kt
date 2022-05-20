@@ -78,7 +78,7 @@ class MyDBHelper(private val context: Context?) :
         w.close()
     }
 
-    private fun drawableToByteArray(bitmap: Bitmap?): ByteArray? {
+    fun drawableToByteArray(bitmap: Bitmap?): ByteArray? {
         val stream = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
         return stream.toByteArray()
