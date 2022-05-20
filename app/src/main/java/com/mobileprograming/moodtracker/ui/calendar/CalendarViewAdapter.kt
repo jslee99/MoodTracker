@@ -22,7 +22,7 @@ class CalendarViewAdapter(val DiaryList : ArrayList<Diary>) : RecyclerView.Adapt
 
     inner class ViewHolder(val binding : CalendarCellBinding) : RecyclerView.ViewHolder(binding.root){
         init{
-            itemView.setOnClickListener {
+            binding.root.setOnClickListener {
                 itemClickListener?.onItemClick(DiaryList[adapterPosition])
             }
         }

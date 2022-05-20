@@ -17,6 +17,7 @@ import com.mobileprograming.moodtracker.ui.writing.WritingActivity
 import com.mobileprograming.moodtracker.util.IntentKey
 import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
+import java.time.Clock.system
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -42,6 +43,7 @@ class CalendarActivity : AppCompatActivity() {
         initList()
 
         initRecyclerVIew()
+        initMonthBtnListener()
 
         setMonthYearTextView(localDate)
         setRecyclerView(localDate)
@@ -97,10 +99,10 @@ class CalendarActivity : AppCompatActivity() {
         val firstOfMonth = selectedDate.withDayOfMonth(1)
         val dayOfWeek = firstOfMonth.dayOfWeek.value
         for(i in 1..42){
-            if(i <= dayOfWeek || i > daysInMonth + dayOfWeek){
-                DaysInMonthArray.add(-1)
+            if(dayOfWeek <= i && i < dayOfWeek + daysInMonth){
+                DaysInMonthArray.add(i - dayOfWeek + 1)
             }else{
-                DaysInMonthArray.add(i + dayOfWeek)
+                DaysInMonthArray.add(-1)
             }
         }
         return DaysInMonthArray
@@ -136,11 +138,26 @@ class CalendarActivity : AppCompatActivity() {
             }else{
                 ldate = -1
             }
+            //DB에서 mood정보 가지고 와야한다.
             val mood = 0
             val content = ""
             val image = null
             adapter.DiaryList.add(Diary(ldate, mood, content, image))
         }
-        adapter.notifyDataSetChanged()
+        adapter.notifyItemRangeChanged(0, 42)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun initMonthBtnListener(){
+        binding.activityCalendarPrev.setOnClickListener {
+            localDate = localDate.minusMonths(1)
+            setMonthYearTextView(localDate)
+            setRecyclerView(localDate)
+        }
+        binding.activityCalendarNext.setOnClickListener {
+            localDate = localDate.plusMonths(1)
+            setMonthYearTextView(localDate)
+            setRecyclerView(localDate)
+        }
     }
 }
