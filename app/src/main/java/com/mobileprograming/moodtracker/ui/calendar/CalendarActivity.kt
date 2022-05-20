@@ -87,7 +87,7 @@ class CalendarActivity : AppCompatActivity() {
         binding.calendarRecylcerView.layoutManager = GridLayoutManager(this, 7)
     }
 
-    //selectedDate의 month에 맞춰서 daysInMonthArray(size : 7 * 6 = 42)를 반환, 해당하는 month에 없는 날짜면 -1을 넣는다.
+    //selectedDate의 month에 맞춰서 daysInMonthArray(size : 7 * 6 = 42)를 반환, 해당하는 month에 없는 날짜면 -1을 넣는다. 해당하는 month에 있는 날짜면 그 날짜를 넣음
     @RequiresApi(Build.VERSION_CODES.O)
     private fun daysInMonthArray(selectedDate : LocalDate) : ArrayList<Int>{
         val DaysInMonthArray = ArrayList<Int>()
@@ -95,7 +95,7 @@ class CalendarActivity : AppCompatActivity() {
 
         //현재 month의 길이
         val daysInMonth = yearMonth.lengthOfMonth()
-        //현재 month의 첫번째날을 가지고 온후에 그 날이 일요일이면 0, 월요일이면 1,.....을 반환하여 dayOfWeek에 저장
+        //현재 month의 첫번째날을 가지고 온후에 그 날이  월요일이면 1, 화요일이면 2.....을 반환하여 dayOfWeek에 저장
         val firstOfMonth = selectedDate.withDayOfMonth(1)
         val dayOfWeek = firstOfMonth.dayOfWeek.value
         for(i in 1..42){
@@ -108,7 +108,7 @@ class CalendarActivity : AppCompatActivity() {
         return DaysInMonthArray
     }
 
-    //year와 month textview를 selectedDate에 따라 set
+    //year와 month textview를 selectedDate에 따라 변경
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setMonthYearTextView(selectedDate : LocalDate){
         val monthF = DateTimeFormatter.ofPattern("MM")
