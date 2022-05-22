@@ -7,7 +7,10 @@
         <entry key="..\:/Juyonghan/Andriod/AndriodStudioProjects/MoodTracker/app/src/main/res/layout/activity_main.xml" value="0.26992753623188404" />
         <entry key="..\:/Juyonghan/Andriod/AndriodStudioProjects/MoodTracker/app/src/main/res/layout/activity_setting.xml" value="0.26992753623188404" />
         <entry key="..\:/Juyonghan/Andriod/AndriodStudioProjects/MoodTracker/app/src/main/res/layout/activity_setting2.xml" value="0.26992753623188404" />
-        <entry key="app/src/main/res/layout/activity_writing.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_outline_camera_alt_24.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_setting.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_writing.xml" value="0.256903076171875" />
+        <entry key="app/src/main/res/layout/dialog_choose_image.xml" value="0.1464431762695313" />
       </map>
     </option>
   </component>
@@ -16,5 +19,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.165" />
+      </ProjectState>
+    </option>
   </component>
 </project>
