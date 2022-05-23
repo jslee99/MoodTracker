@@ -40,13 +40,13 @@ class CalendarActivity : AppCompatActivity() {
         // diaryList = myDBHelper.getAllDiary()
 
         // 테스트용 다이어리 리스트입니다
-//        diaryList = listOf(
-//            Diary(0,0,"test 0",
-//                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()),
-//            Diary(1,1,"test 1",
-//                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()),
-//            Diary(2,2,"test 2",
-//                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()))
+        diaryList = listOf(
+            Diary(0,0,"test 0",
+                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()),
+            Diary(1,1,"test 1",
+                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()),
+            Diary(2,2,"test 2",
+                ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()))
     }
 
     // 무드를 입력받아 WritingActivity 이동

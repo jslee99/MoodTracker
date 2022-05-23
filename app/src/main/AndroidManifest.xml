@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoodTracker">
         <activity
-            android:name=".ui.diarylist.DiaryListActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.detail.DetailActivity"
             android:exported="false" />
         <activity
@@ -20,6 +17,9 @@
             android:exported="false" />
         <activity
             android:name=".ui.writing.WritingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.diarylist.DiaryListActivity"
             android:exported="false" />
         <activity
             android:name=".ui.calendar.CalendarActivity"
