@@ -13,6 +13,7 @@ import com.mobileprograming.moodtracker.data.Diary
 import com.mobileprograming.moodtracker.data.MyDBHelper
 import com.mobileprograming.moodtracker.databinding.ActivityCalendarBinding
 import com.mobileprograming.moodtracker.ui.detail.DetailActivity
+import com.mobileprograming.moodtracker.ui.diarylist.DiaryListActivity
 import com.mobileprograming.moodtracker.ui.writing.WritingActivity
 import com.mobileprograming.moodtracker.util.IntentKey
 import java.lang.System.currentTimeMillis
@@ -43,11 +44,12 @@ class CalendarActivity : AppCompatActivity() {
         initList()
 
         initRecyclerVIew()
-        initMonthBtnListener()
+        initBtnListener()
         initMoodImagetListener()
 
         setMonthYearTextView(localDate)
         setRecyclerView(localDate)
+
     }
 
     private fun initDB() {
@@ -67,6 +69,16 @@ class CalendarActivity : AppCompatActivity() {
                 ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()))
     }
 
+    private fun intentSettingActivity(){
+        val intent = Intent(this, DetailActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun intentDiaryListActivity(){
+        val intent = Intent(this, DiaryListActivity::class.java)
+        startActivity(intent)
+    }
+
     // 무드를 입력받아 WritingActivity 이동
     private fun intentWriteDiary(mood:Int){
         val intent = Intent(this, WritingActivity::class.java)
@@ -75,9 +87,15 @@ class CalendarActivity : AppCompatActivity() {
     }
 
     // Diary 객체를 받아서 DetailActivity 이동
-    private fun intentDetail(diary: Diary){
+//    private fun intentDetail(diary: Diary){
+//        val intent = Intent(this, DetailActivity::class.java)
+//        intent.putExtra(IntentKey.DIARY_KEY, diary)
+//        startActivity(intent)
+//    }
+
+    private fun intentDetail(ldate : Long){
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(IntentKey.DIARY_KEY, diary)
+        intent.putExtra(IntentKey.DIARY_KEY, ldate)
         startActivity(intent)
     }
 
@@ -107,7 +125,8 @@ class CalendarActivity : AppCompatActivity() {
         binding.calendarRecylcerView.adapter = adapter
         adapter.itemClickListener = object : CalendarViewAdapter.onItemClickListener{
             override fun onItemClick(cellData: Diary) {
-                intentDetail(cellData)
+                if(cellData.date != (-1).toLong())
+                    intentDetail(cellData.date)
             }
         }
         binding.calendarRecylcerView.layoutManager = GridLayoutManager(this, 7)
@@ -134,7 +153,6 @@ class CalendarActivity : AppCompatActivity() {
         return DaysInMonthArray
     }
 
-
     //year와 month textview를 selectedDate에 따라 변경
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setMonthYearTextView(selectedDate : LocalDate){
@@ -149,8 +167,12 @@ class CalendarActivity : AppCompatActivity() {
     private fun setRecyclerView(selectedDate: LocalDate){
         //set adapter.DiaryListfd
         adapter.DiaryList.clear()
+        //selectedDate의 month, year을 string형태로 변환
+        val monthF = DateTimeFormatter.ofPattern("MM")
+        val yearF = DateTimeFormatter.ofPattern("yyyy")
+        val monthStr = selectedDate.format(monthF)
+        val yearStr = selectedDate.format(yearF)
         for(i in 0..41){
-
             val DaysInMonthArray = daysInMonthArray(selectedDate)
             var ldate : Long
             if(DaysInMonthArray[i] != -1){
@@ -159,7 +181,8 @@ class CalendarActivity : AppCompatActivity() {
                 if(dayStr.length == 1){
                     dayStr = "0" + dayStr
                 }
-                val formatStr = binding.activityCalendarYearText.text.toString() + "." + binding.activityCalendarMonthText.text.toString() + "." + dayStr
+//                val formatStr = binding.activityCalendarYearText.text.toString() + "." + binding.activityCalendarMonthText.text.toString() + "." + dayStr
+                val formatStr = yearStr + "." + monthStr + "." + dayStr
                 val date = sdf.parse(formatStr)
                 ldate = date.time
             }else{
@@ -168,6 +191,7 @@ class CalendarActivity : AppCompatActivity() {
             //DB에서 mood정보 가지고 와야한다.
             val mood = 0
             val content = ""
+//            val image = ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()
             val image = null
             adapter.DiaryList.add(Diary(ldate, mood, content, image))
         }
@@ -175,7 +199,7 @@ class CalendarActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun initMonthBtnListener(){
+    private fun initBtnListener(){
         binding.activityCalendarPrev.setOnClickListener {
             localDate = localDate.minusMonths(1)
             setMonthYearTextView(localDate)
@@ -185,6 +209,12 @@ class CalendarActivity : AppCompatActivity() {
             localDate = localDate.plusMonths(1)
             setMonthYearTextView(localDate)
             setRecyclerView(localDate)
+        }
+        binding.activityCalendarListBtn.setOnClickListener {
+            intentDiaryListActivity()
+        }
+        binding.activityCalendarSettingBtn.setOnClickListener {
+            intentSettingActivity()
         }
     }
 }

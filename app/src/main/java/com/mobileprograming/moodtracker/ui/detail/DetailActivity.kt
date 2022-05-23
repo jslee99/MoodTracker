@@ -14,14 +14,15 @@ class DetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetailBinding
 
     // 테스트용 Diary 객체
-    private val diary = Diary(0,3, "test content",
-        ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap())
+//    private val diary = Diary(0,3, "test content",
+//        ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val diary = Diary(0,3, "test content",
+        ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap())
         // 아래 코드를 통해 diary 객체를 받아옵니다
         // val diary = intent.getSerializableExtra(IntentKey.DIARY_KEY) as Diary
     }
