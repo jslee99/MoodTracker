@@ -27,11 +27,10 @@ class WritingActivity : AppCompatActivity() {
     lateinit var binding:ActivityWritingBinding
     lateinit var myDBHelper:MyDBHelper
 
-
     // 테스트용 초기 mood 값
     var mood = 0
 
-    //사진 관련 코드
+    //사진 관련 variable
     private val IMAGE_CHOOSE = 1;
     private val PERMISSION_CODE = 2;
     private var imageUri: Uri? = null
@@ -40,6 +39,7 @@ class WritingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //hide action bar(title bar)
         supportActionBar?.hide()
 
         binding = ActivityWritingBinding.inflate(layoutInflater)
@@ -53,17 +53,12 @@ class WritingActivity : AppCompatActivity() {
 
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
     private fun initLayout() {
         with(binding){
 
             //back button
             backButton.setOnClickListener {
-                onBackPressed()
+                finish()
             }
 
             //사진 추가 button
@@ -106,7 +101,7 @@ class WritingActivity : AppCompatActivity() {
 
     }
 
-    //선태한 디분 크기 조정하는 기능
+    //선태한 기분 크기 조정하는 함수
     private fun emoticonSelector(mood: Int){
 
         val selected: Int = (2 * resources.displayMetrics.density).toInt()
@@ -169,6 +164,7 @@ class WritingActivity : AppCompatActivity() {
 
         // db 삽입
         myDBHelper.insert(diary)
+        finish()
     }
 
 
