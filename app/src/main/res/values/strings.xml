@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MoodTracker</string>
+
+    <!--  Diary default  -->
+    <string name="diary_hint_value">오늘의 하루..</string>
+    <string name="back_to_diary_button">일기</string>
+    <!--  Dialog choose image  -->
+    <string name="dialog_image_title">이미지 추가</string>
+    <string name="dialog_image_select">이미지 선택</string>
+    <string name="dialog_image_take">사진 찍기</string>
 </resources>
