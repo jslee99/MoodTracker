@@ -83,4 +83,31 @@ class MyDBHelper(private val context: Context?) :
         bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
         return stream.toByteArray()
     }
+
+    fun getDiary(date:Long):List<Diary>{
+        val strSql = "select * from $TABLE_NAME WHERE $DATE = $date;"
+        val db = readableDatabase
+        val cursor = db.rawQuery(strSql, null)
+        val mutableList = mutableListOf<Diary>()
+        if (cursor != null && cursor.count > 0) {
+            cursor.moveToFirst()
+            do {
+                val date = cursor.getLong(0)
+                val mood = cursor.getInt(1)
+                val content = cursor.getString(2)
+                val image = cursor.getBlob(3)
+                mutableList.add(
+                    Diary(
+                        date,
+                        mood,
+                        content,
+                        image
+                    )
+                )
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return mutableList.toList()
+    }
 }
