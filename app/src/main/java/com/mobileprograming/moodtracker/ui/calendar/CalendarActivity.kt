@@ -176,14 +176,15 @@ class CalendarActivity : AppCompatActivity() {
             val DaysInMonthArray = daysInMonthArray(selectedDate)
             var ldate : Long
             var mood : Int
+            //content와 image는 calendarView에서 필요x dummy정보
             var content = ""
             val image = null
             if(DaysInMonthArray[i] != -1){//그 달에 해당하는 날짜가 있는 cell
                 val sdf = SimpleDateFormat("yyyy.MM.dd")
                 var dayStr = DaysInMonthArray[i].toString()
-                if(dayStr.length == 1){
-                    dayStr = "0" + dayStr
-                }
+//                if(dayStr.length == 1){
+//                    dayStr = "0" + dayStr
+//                }
 //                val formatStr = binding.activityCalendarYearText.text.toString() + "." + binding.activityCalendarMonthText.text.toString() + "." + dayStr
                 val formatStr = yearStr + "." + monthStr + "." + dayStr
                 val date = sdf.parse(formatStr)
