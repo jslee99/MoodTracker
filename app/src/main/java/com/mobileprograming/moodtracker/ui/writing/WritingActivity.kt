@@ -156,13 +156,13 @@ class WritingActivity : AppCompatActivity() {
     // 데이터베이스에 diary 추가 예제 코드일 뿐입니다.
     // 삽입 방식이 이해되셨다면 지우셔도 됩니다.
     private fun insert(){
+
         // 이미지 비트맵 가져오기 ( 예시, R.drawable.happy_1 )
         //val bitmap = ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toByteA()
 
         // 다이어리 객체 생성
         val diary = Diary(System.currentTimeMillis(), mood, binding.diaryText.text.toString(), byteArray)
 
-        // db 삽입
         myDBHelper.insert(diary)
         finish()
     }
