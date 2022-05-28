@@ -12,6 +12,7 @@ import com.mobileprograming.moodtracker.databinding.ActivityCalendarBinding
 import com.mobileprograming.moodtracker.ui.detail.DetailActivity
 import com.mobileprograming.moodtracker.ui.diarylist.DiaryListActivity
 import com.mobileprograming.moodtracker.ui.setting.SettingActivity
+import com.mobileprograming.moodtracker.ui.writing.TestWritingActivity
 import com.mobileprograming.moodtracker.ui.writing.WritingActivity
 import com.mobileprograming.moodtracker.util.IntentKey
 import java.text.SimpleDateFormat
@@ -41,6 +42,8 @@ class CalendarActivity : AppCompatActivity() {
         initRecyclerVIew()
         initBtnListener()
         initMoodImageListener()
+
+        initTestWritingListener()
 
         setMonthYearTextView(localDate)
         setRecyclerView(localDate)
@@ -222,4 +225,11 @@ class CalendarActivity : AppCompatActivity() {
         }
     }
 
+    private fun initTestWritingListener(){
+        binding.testWriting.setOnClickListener {
+            val intent = Intent(this, TestWritingActivity::class.java)
+            startActivity(intent)
+            //
+        }
+    }
 }
