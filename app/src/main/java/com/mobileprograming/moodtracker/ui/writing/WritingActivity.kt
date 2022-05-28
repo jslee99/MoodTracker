@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
 import com.mobileprograming.moodtracker.R
@@ -20,6 +21,8 @@ import com.mobileprograming.moodtracker.data.MyDBHelper
 import com.mobileprograming.moodtracker.databinding.ActivityWritingBinding
 import com.mobileprograming.moodtracker.util.IntentKey
 import java.io.ByteArrayOutputStream
+import java.time.LocalDate
+import java.text.SimpleDateFormat
 
 
 class WritingActivity : AppCompatActivity() {
@@ -36,6 +39,7 @@ class WritingActivity : AppCompatActivity() {
     private var imageUri: Uri? = null
     var byteArray: ByteArray? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -53,6 +57,7 @@ class WritingActivity : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initLayout() {
         with(binding){
 
@@ -148,6 +153,19 @@ class WritingActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun saveTime(): Long {
+        val localDate = LocalDate.now()
+        val y = localDate.year
+        val m = localDate.monthValue
+        val d = localDate.dayOfMonth
+        val sdf = SimpleDateFormat("yyyy.MM.dd")
+        val formatStr = y.toString() + "." + m.toString() + "." + d.toString()
+        val date = sdf.parse(formatStr)
+        val ldate = date.time
+        return ldate
+    }
+
 
     private fun initDB() {
         myDBHelper = MyDBHelper(this)
@@ -155,13 +173,15 @@ class WritingActivity : AppCompatActivity() {
 
     // 데이터베이스에 diary 추가 예제 코드일 뿐입니다.
     // 삽입 방식이 이해되셨다면 지우셔도 됩니다.
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun insert(){
 
         // 이미지 비트맵 가져오기 ( 예시, R.drawable.happy_1 )
         //val bitmap = ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toByteA()
 
+        val time = saveTime()
         // 다이어리 객체 생성
-        val diary = Diary(System.currentTimeMillis(), mood, binding.diaryText.text.toString(), byteArray)
+        val diary = Diary(time, mood, binding.diaryText.text.toString(), byteArray)
 
         myDBHelper.insert(diary)
         finish()
@@ -222,7 +242,6 @@ class WritingActivity : AppCompatActivity() {
             }
         }
     }
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
