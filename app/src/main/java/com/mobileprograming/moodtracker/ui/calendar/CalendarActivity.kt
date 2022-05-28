@@ -175,7 +175,10 @@ class CalendarActivity : AppCompatActivity() {
         for(i in 0..41){
             val DaysInMonthArray = daysInMonthArray(selectedDate)
             var ldate : Long
-            if(DaysInMonthArray[i] != -1){
+            var mood : Int
+            var content = ""
+            val image = null
+            if(DaysInMonthArray[i] != -1){//그 달에 해당하는 날짜가 있는 cell
                 val sdf = SimpleDateFormat("yyyy.MM.dd")
                 var dayStr = DaysInMonthArray[i].toString()
                 if(dayStr.length == 1){
@@ -185,14 +188,19 @@ class CalendarActivity : AppCompatActivity() {
                 val formatStr = yearStr + "." + monthStr + "." + dayStr
                 val date = sdf.parse(formatStr)
                 ldate = date.time
-            }else{
+                val diaryList = myDBHelper.getDiary(ldate)
+                if(diaryList.size > 0){//그 날짜에는 일기를 작성하였다.
+                    mood = diaryList[0].mood
+                }else{//해당하는 데이터를 찾을수 없다 즉, 그날짜에는 일기를 작성하지 않았다.
+                    mood = -1
+                }
+            }else{//그 달에 해당하는 날짜가 없는 cell
                 ldate = -1
+                mood = -1
             }
+            val diaryList = myDBHelper.getDiary(ldate)
             //DB에서 mood정보 가지고 와야한다.
-            val mood = 0
-            val content = ""
 //            val image = ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()
-            val image = null
             adapter.DiaryList.add(Diary(ldate, mood, content, image))
         }
         adapter.notifyItemRangeChanged(0, 42)

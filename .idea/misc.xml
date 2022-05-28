@@ -7,6 +7,9 @@
         <entry key="..\:/Juyonghan/Andriod/AndriodStudioProjects/MoodTracker/app/src/main/res/layout/activity_main.xml" value="0.26992753623188404" />
         <entry key="..\:/Juyonghan/Andriod/AndriodStudioProjects/MoodTracker/app/src/main/res/layout/activity_setting.xml" value="0.26992753623188404" />
         <entry key="..\:/Juyonghan/Andriod/AndriodStudioProjects/MoodTracker/app/src/main/res/layout/activity_setting2.xml" value="0.26992753623188404" />
+        <entry key="..\:/Users/junsub/study/2022_1/Mobile_Programming/MoodTrackersrc/MoodTracker/app/src/main/res/layout/activity_calendar.xml" value="0.3138586956521739" />
+        <entry key="..\:/Users/junsub/study/2022_1/Mobile_Programming/MoodTrackersrc/MoodTracker/app/src/main/res/layout/activity_detail.xml" value="0.3138586956521739" />
+        <entry key="..\:/Users/junsub/study/2022_1/Mobile_Programming/MoodTrackersrc/MoodTracker/app/src/main/res/layout/activity_diary.xml" value="0.3138586956521739" />
         <entry key="app/src/main/res/drawable/ic_outline_camera_alt_24.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_setting.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_writing.xml" value="0.256903076171875" />
@@ -15,7 +18,6 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
-
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
