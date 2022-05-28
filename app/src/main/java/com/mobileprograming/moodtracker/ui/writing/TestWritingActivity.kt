@@ -20,6 +20,7 @@ import com.mobileprograming.moodtracker.data.Diary
 import com.mobileprograming.moodtracker.data.MyDBHelper
 import com.mobileprograming.moodtracker.databinding.ActivityTestWritingBinding
 import com.mobileprograming.moodtracker.databinding.ActivityWritingBinding
+import com.mobileprograming.moodtracker.ui.calendar.CalendarActivity
 import com.mobileprograming.moodtracker.util.IntentKey
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
@@ -188,6 +189,9 @@ class TestWritingActivity : AppCompatActivity() {
         val diary = Diary(time, mood, binding.diaryText.text.toString(), byteArray)
 
         myDBHelper.insert(diary)
+//        val intent = Intent(this, CalendarActivity::class.java)
+//        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+//        startActivity(intent)
         finish()
     }
 

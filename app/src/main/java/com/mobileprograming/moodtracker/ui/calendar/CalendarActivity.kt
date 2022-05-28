@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mobileprograming.moodtracker.data.Diary
 import com.mobileprograming.moodtracker.data.MyDBHelper
@@ -48,6 +49,12 @@ class CalendarActivity : AppCompatActivity() {
         setMonthYearTextView(localDate)
         setRecyclerView(localDate)
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
+        setRecyclerView(localDate)
     }
 
     private fun initDB() {
@@ -197,8 +204,6 @@ class CalendarActivity : AppCompatActivity() {
                 ldate = -1
                 mood = -1
             }
-            val diaryList = myDBHelper.getDiary(ldate)
-            //DB에서 mood정보 가지고 와야한다.
 //            val image = ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()
             adapter.DiaryList.add(Diary(ldate, mood, content, image))
         }
@@ -228,8 +233,8 @@ class CalendarActivity : AppCompatActivity() {
     private fun initTestWritingListener(){
         binding.testWriting.setOnClickListener {
             val intent = Intent(this, TestWritingActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
             startActivity(intent)
-            //
         }
     }
 }
