@@ -74,7 +74,7 @@ class MyDBHelper(private val context: Context?) :
         values.put(IMAGE, diary.image)
 
         val w = writableDatabase
-        w.insert(TABLE_NAME, null, values)
+        w.replace(TABLE_NAME, null, values)
         w.close()
     }
 
