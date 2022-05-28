@@ -5,26 +5,21 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.RequiresApi
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.GridLayoutManager
-import com.mobileprograming.moodtracker.R
 import com.mobileprograming.moodtracker.data.Diary
 import com.mobileprograming.moodtracker.data.MyDBHelper
 import com.mobileprograming.moodtracker.databinding.ActivityCalendarBinding
 import com.mobileprograming.moodtracker.ui.detail.DetailActivity
 import com.mobileprograming.moodtracker.ui.diarylist.DiaryListActivity
+import com.mobileprograming.moodtracker.ui.setting.SettingActivity
 import com.mobileprograming.moodtracker.ui.writing.WritingActivity
 import com.mobileprograming.moodtracker.util.IntentKey
-import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
-import java.time.Clock.system
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.system.measureTimeMillis
 
 class CalendarActivity : AppCompatActivity() {
 
@@ -45,7 +40,7 @@ class CalendarActivity : AppCompatActivity() {
 
         initRecyclerVIew()
         initBtnListener()
-        initMoodImagetListener()
+        initMoodImageListener()
 
         setMonthYearTextView(localDate)
         setRecyclerView(localDate)
@@ -70,7 +65,7 @@ class CalendarActivity : AppCompatActivity() {
     }
 
     private fun intentSettingActivity(){
-        val intent = Intent(this, DetailActivity::class.java)
+        val intent = Intent(this, SettingActivity::class.java)
         startActivity(intent)
     }
 
@@ -99,7 +94,7 @@ class CalendarActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun initMoodImagetListener(){
+    private fun initMoodImageListener(){
         binding.apply {
             activityCalendarMood0.setOnClickListener {
                 intentWriteDiary(0)
@@ -226,4 +221,5 @@ class CalendarActivity : AppCompatActivity() {
             intentSettingActivity()
         }
     }
+
 }
