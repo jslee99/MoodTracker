@@ -7,5 +7,5 @@ data class Diary(
     val date: Long,
     val mood: Int,
     val content: String?,
-    val image: Bitmap?
+    val image: ByteArray?
 ) : Serializable

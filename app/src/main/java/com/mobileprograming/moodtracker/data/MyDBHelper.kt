@@ -56,7 +56,7 @@ class MyDBHelper(private val context: Context?) :
                         date,
                         mood,
                         content,
-                        BitmapFactory.decodeByteArray(image, 0, image.size)
+                        image
                     )
                 )
             } while (cursor.moveToNext())
@@ -71,14 +71,14 @@ class MyDBHelper(private val context: Context?) :
         values.put(DATE, diary.date)
         values.put(MOOD, diary.mood)
         values.put(CONTENT, diary.content)
-        values.put(IMAGE, drawableToByteArray(diary.image))
+        values.put(IMAGE, diary.image)
 
         val w = writableDatabase
         w.insert(TABLE_NAME, null, values)
         w.close()
     }
 
-    private fun drawableToByteArray(bitmap: Bitmap?): ByteArray? {
+    fun drawableToByteArray(bitmap: Bitmap?): ByteArray? {
         val stream = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
         return stream.toByteArray()
