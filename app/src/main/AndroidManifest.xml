@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mobileprograming.moodtracker">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoodTracker">
-        <receiver android:name=".ui.setting.AlarmReceiver"/>
+        <activity
+            android:name=".ui.writing.TestWritingActivity"
+            android:exported="false" />
+
+        <receiver android:name=".ui.setting.AlarmReceiver" />
+
         <activity
             android:name=".ui.detail.DetailActivity"
             android:exported="false" />

@@ -5,26 +5,23 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.RequiresApi
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toBitmap
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.mobileprograming.moodtracker.R
 import com.mobileprograming.moodtracker.data.Diary
 import com.mobileprograming.moodtracker.data.MyDBHelper
 import com.mobileprograming.moodtracker.databinding.ActivityCalendarBinding
 import com.mobileprograming.moodtracker.ui.detail.DetailActivity
 import com.mobileprograming.moodtracker.ui.diarylist.DiaryListActivity
+import com.mobileprograming.moodtracker.ui.setting.SettingActivity
+import com.mobileprograming.moodtracker.ui.writing.TestWritingActivity
 import com.mobileprograming.moodtracker.ui.writing.WritingActivity
 import com.mobileprograming.moodtracker.util.IntentKey
-import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
-import java.time.Clock.system
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.system.measureTimeMillis
 
 class CalendarActivity : AppCompatActivity() {
 
@@ -45,11 +42,19 @@ class CalendarActivity : AppCompatActivity() {
 
         initRecyclerVIew()
         initBtnListener()
-        initMoodImagetListener()
+        initMoodImageListener()
+
+        initTestWritingListener()
 
         setMonthYearTextView(localDate)
         setRecyclerView(localDate)
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
+        setRecyclerView(localDate)
     }
 
     private fun initDB() {
@@ -70,7 +75,7 @@ class CalendarActivity : AppCompatActivity() {
     }
 
     private fun intentSettingActivity(){
-        val intent = Intent(this, DetailActivity::class.java)
+        val intent = Intent(this, SettingActivity::class.java)
         startActivity(intent)
     }
 
@@ -99,7 +104,7 @@ class CalendarActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun initMoodImagetListener(){
+    private fun initMoodImageListener(){
         binding.apply {
             activityCalendarMood0.setOnClickListener {
                 intentWriteDiary(0)
@@ -175,24 +180,31 @@ class CalendarActivity : AppCompatActivity() {
         for(i in 0..41){
             val DaysInMonthArray = daysInMonthArray(selectedDate)
             var ldate : Long
-            if(DaysInMonthArray[i] != -1){
+            var mood : Int
+            //content와 image는 calendarView에서 필요x dummy정보
+            var content = ""
+            val image = null
+            if(DaysInMonthArray[i] != -1){//그 달에 해당하는 날짜가 있는 cell
                 val sdf = SimpleDateFormat("yyyy.MM.dd")
                 var dayStr = DaysInMonthArray[i].toString()
-                if(dayStr.length == 1){
-                    dayStr = "0" + dayStr
-                }
+//                if(dayStr.length == 1){
+//                    dayStr = "0" + dayStr
+//                }
 //                val formatStr = binding.activityCalendarYearText.text.toString() + "." + binding.activityCalendarMonthText.text.toString() + "." + dayStr
                 val formatStr = yearStr + "." + monthStr + "." + dayStr
                 val date = sdf.parse(formatStr)
                 ldate = date.time
-            }else{
+                val diaryList = myDBHelper.getDiary(ldate)
+                if(diaryList.size > 0){//그 날짜에는 일기를 작성하였다.
+                    mood = diaryList[0].mood
+                }else{//해당하는 데이터를 찾을수 없다 즉, 그날짜에는 일기를 작성하지 않았다.
+                    mood = -1
+                }
+            }else{//그 달에 해당하는 날짜가 없는 cell
                 ldate = -1
+                mood = -1
             }
-            //DB에서 mood정보 가지고 와야한다.
-            val mood = 0
-            val content = ""
 //            val image = ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap()
-            val image = null
             adapter.DiaryList.add(Diary(ldate, mood, content, image))
         }
         adapter.notifyItemRangeChanged(0, 42)
@@ -215,6 +227,14 @@ class CalendarActivity : AppCompatActivity() {
         }
         binding.activityCalendarSettingBtn.setOnClickListener {
             intentSettingActivity()
+        }
+    }
+
+    private fun initTestWritingListener(){
+        binding.testWriting.setOnClickListener {
+            val intent = Intent(this, TestWritingActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            startActivity(intent)
         }
     }
 }

@@ -18,6 +18,11 @@
             android:text="캘린더"
             android:textSize="20sp"
             android:layout_gravity="center_vertical"/>
+        <Button
+            android:id="@+id/testWriting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test Writing"/>
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
