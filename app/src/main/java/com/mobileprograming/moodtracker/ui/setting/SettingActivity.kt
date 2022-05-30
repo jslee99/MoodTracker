@@ -21,9 +21,16 @@ class SettingActivity : AppCompatActivity() {
 
         initOnOffButton()
         initChangeTimeButton()
+        initBackButton()
 
         val model = fetchDataFromSharedPreferences()
         renderModel(model)
+    }
+
+    private fun initBackButton() {
+        binding.backButton.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun initChangeTimeButton(){
