@@ -1,17 +1,14 @@
 package com.mobileprograming.moodtracker.ui.detail
 
-import android.content.Intent
 import android.graphics.BitmapFactory
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toBitmap
+import androidx.appcompat.app.AppCompatActivity
 import com.mobileprograming.moodtracker.R
-import com.mobileprograming.moodtracker.data.Diary
 import com.mobileprograming.moodtracker.data.MyDBHelper
 import com.mobileprograming.moodtracker.databinding.ActivityDetailBinding
-import com.mobileprograming.moodtracker.ui.calendar.CalendarActivity
 import com.mobileprograming.moodtracker.util.IntentKey
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DetailActivity : AppCompatActivity() {
 
@@ -41,11 +38,12 @@ class DetailActivity : AppCompatActivity() {
                     4 -> emotionDraw=R.drawable.sad_4
                 }
                 if(emotionDraw!=null){
-                    diaryImage.setImageResource(emotionDraw)
+                    emotionImage.setImageResource(emotionDraw)
                 }
-                val dateString= diary[0].date.toString()
-                diaryDate.text=dateString.substring(0,3)+"년 "+dateString.substring(4,5)+"월 "+dateString.substring(6,7)+"일";
-
+                val dateString= Date(diary[0].date)
+                val format = SimpleDateFormat("yyyy년 MM월 dd일")
+                val str: String = format.format(dateString)
+                diaryDate.text=str
                 val imagebyte=diary[0].image
                 if (imagebyte != null) {
                     diaryImage.setImageBitmap(
@@ -56,6 +54,7 @@ class DetailActivity : AppCompatActivity() {
                         )
                     )
                 }
+                diaryContent.text=diary[0].content
             }else{
                 diaryDate.text="일기가 존재하지 않습니다."
             }
