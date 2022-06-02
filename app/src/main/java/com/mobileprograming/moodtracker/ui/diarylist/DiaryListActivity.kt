@@ -31,6 +31,6 @@ class DiaryListActivity : AppCompatActivity() {
                 exceptNullList.add(diary)
             }
         }
-        diaryListBinding.recyclerView.adapter=MyAdapter(exceptNullList) //TODO 나중에 일기를 쓰고 나서 데이더가 업데이트 되었을때 오늘분의 일기가 표시될지 고려해봐야됨
+        diaryListBinding.recyclerView.adapter=MyAdapter(exceptNullList) // 나중에 일기를 쓰고 나서 데이더가 업데이트 되었을때 오늘분의 일기가 표시될지 고려해봐야됨
     }
 }

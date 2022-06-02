@@ -48,22 +48,21 @@
             android:id="@+id/diaryDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="xxxx년 x월 x일 x요일"
             android:textSize="16sp"
             android:textColor="#555555"
             android:layout_marginBottom="20dp"/>
+
         <ImageView
             android:id="@+id/diaryImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_foreground"
             android:background="#C4C4C4" />
+
         <TextView
             android:id="@+id/diaryContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:text="일기 내용"
             android:textSize="14sp"/>
     </LinearLayout>
 </LinearLayout>

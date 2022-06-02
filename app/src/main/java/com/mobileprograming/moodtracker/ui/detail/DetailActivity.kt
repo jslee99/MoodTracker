@@ -17,10 +17,6 @@ class DetailActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityDetailBinding
 
-    // 테스트용 Diary 객체
-//    private val diary = Diary(0,3, "test content",
-//        ResourcesCompat.getDrawable(resources, R.drawable.test, null)?.toBitmap())
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -30,38 +26,42 @@ class DetailActivity : AppCompatActivity() {
     private fun init()
     {
         val intent=intent
-        val date=intent.getLongExtra("date",0)//TODO name값 수정 필요
+        val date=intent.getLongExtra(IntentKey.DIARY_KEY,0)
 
-        var diary:Diary?=null
         val db=MyDBHelper(this)
-        val diarylist=db.getAllDiary()
-        for(getDiary in diarylist){
-            if(getDiary.date==date){ //TODO 수정 필요
-                diary=getDiary
-                break
-            }
-        }
-
-        val imageNum=diary?.mood
-        var emotionDraw: Int?=null
-        when(imageNum){
-            1 -> emotionDraw = R.drawable.happy_1
-            2 -> emotionDraw=R.drawable.ok_2
-            3 -> emotionDraw=R.drawable.angry_3
-            4 -> emotionDraw=R.drawable.sad_4
-        }
+        var diary=db.getDiary(date)
         binding.apply {
-            if(emotionDraw!=null){
-                diaryImage.setImageResource(emotionDraw)
-            }
-            val dateString= diary?.date.toString()
-            diaryDate.text=dateString
+            if(diary.size!=0){
+                val imageNum=diary[0].mood
+                var emotionDraw: Int?=null
+                when(imageNum){
+                    1 -> emotionDraw = R.drawable.happy_1
+                    2 -> emotionDraw=R.drawable.ok_2
+                    3 -> emotionDraw=R.drawable.angry_3
+                    4 -> emotionDraw=R.drawable.sad_4
+                }
+                if(emotionDraw!=null){
+                    diaryImage.setImageResource(emotionDraw)
+                }
+                val dateString= diary[0].date.toString()
+                diaryDate.text=dateString.substring(0,3)+"년 "+dateString.substring(4,5)+"월 "+dateString.substring(6,7)+"일";
 
-            val imagebyte=diary?.image
-            if (imagebyte != null) {
-                diaryImage.setImageBitmap(BitmapFactory.decodeByteArray(imagebyte,0,imagebyte.size))
+                val imagebyte=diary[0].image
+                if (imagebyte != null) {
+                    diaryImage.setImageBitmap(
+                        BitmapFactory.decodeByteArray(
+                            imagebyte,
+                            0,
+                            imagebyte.size
+                        )
+                    )
+                }
+            }else{
+                diaryDate.text="일기가 존재하지 않습니다."
             }
         }
+
+
         binding.closeButton.setOnClickListener {
             finish()
         }
