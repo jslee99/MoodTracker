@@ -10,11 +10,14 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
+import androidx.core.view.updateLayoutParams
 import com.mobileprograming.moodtracker.R
 import com.mobileprograming.moodtracker.data.Diary
 import com.mobileprograming.moodtracker.data.MyDBHelper
@@ -34,8 +37,8 @@ class WritingActivity : AppCompatActivity() {
     var mood = 0
 
     //사진 관련 variable
-    private val IMAGE_CHOOSE = 1;
-    private val PERMISSION_CODE = 2;
+    private val IMAGE_CHOOSE = 1
+    private val PERMISSION_CODE = 2
     private var imageUri: Uri? = null
     var byteArray: ByteArray? = null
 
@@ -232,6 +235,7 @@ class WritingActivity : AppCompatActivity() {
         when (requestCode) {
             IMAGE_CHOOSE -> if (resultCode == RESULT_OK) {
                 imageUri = data?.data
+                binding.diaryPhoto.setAdjustViewBounds(true);
                 binding.diaryPhoto.setImageURI(imageUri)
                 //Uri -> ByteArray
                 val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
