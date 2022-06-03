@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobileprograming.moodtracker.R
 import com.mobileprograming.moodtracker.data.Diary
 import com.mobileprograming.moodtracker.databinding.DiarylistRowBinding
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 import android.graphics.Bitmap as Bitmap1
 
 class MyAdapter (val diaryList:ArrayList<Diary>)
@@ -33,8 +36,10 @@ class MyAdapter (val diaryList:ArrayList<Diary>)
             4 -> emotionDraw = R.drawable.sad_4
         }
         holder.binding.emotionImage.setImageResource(emotionDraw!!)
-        val dateString = diaryList[position].date.toString()
-        holder.binding.diaryDate.text = dateString
+        val dateStr= Date(diaryList[position].date)
+        val format = SimpleDateFormat("yyyy년 MM월 dd일")
+        val str: String = format.format(dateStr)
+        holder.binding.diaryDate.text = str
         val imagebyte = diaryList[position].image
         if (imagebyte != null) {
             holder.binding.diaryImage.setImageBitmap(
