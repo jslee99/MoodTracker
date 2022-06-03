@@ -130,7 +130,7 @@ class CalendarActivity : AppCompatActivity() {
         binding.calendarRecylcerView.adapter = adapter
         adapter.itemClickListener = object : CalendarViewAdapter.onItemClickListener{
             override fun onItemClick(cellData: Diary) {
-                if(cellData.date != (-1).toLong())
+                if(cellData.date != (-1).toLong() && cellData.mood != -1)
                     intentDetail(cellData.date)
             }
         }
