@@ -4,20 +4,18 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
-import androidx.core.view.updateLayoutParams
 import com.mobileprograming.moodtracker.R
 import com.mobileprograming.moodtracker.data.Diary
 import com.mobileprograming.moodtracker.data.MyDBHelper
@@ -64,6 +62,8 @@ class WritingActivity : AppCompatActivity() {
     private fun initLayout() {
         with(binding){
 
+            getDiary()
+
             //back button
             backButton.setOnClickListener {
                 finish()
@@ -104,6 +104,36 @@ class WritingActivity : AppCompatActivity() {
             //취소 버튼
             cancelButton.setOnClickListener {
                 onBackPressed()
+            }
+        }
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getDiary() {
+        with(binding) {
+            myDBHelper = MyDBHelper(this@WritingActivity)
+            val ldate = saveTime()
+            var diary = myDBHelper.getDiary(ldate)
+            if (diary.isNotEmpty()) {
+                mood = diary[0].mood
+                emoticonSelector(mood)
+
+                diaryText.setText(diary[0].content)
+
+                val imagebyte = diary[0].image
+                if (imagebyte != null) {
+                    diaryPhoto.setImageBitmap(
+                        BitmapFactory.decodeByteArray(
+                            imagebyte,
+                            0,
+                            imagebyte.size
+                        )
+                    )
+                    diaryPhoto.setAdjustViewBounds(true);
+                }
+
+
             }
         }
 
