@@ -1,12 +1,16 @@
 package com.mobileprograming.moodtracker.ui.setting
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.mobileprograming.moodtracker.R
 import com.mobileprograming.moodtracker.databinding.ActivitySettingBinding
 import java.util.*
 
@@ -29,6 +33,9 @@ class SettingActivity : AppCompatActivity() {
 
     private fun initBackButton() {
         binding.backButton.setOnClickListener {
+            onBackPressed()
+        }
+        binding.backTextView.setOnClickListener {
             onBackPressed()
         }
     }
@@ -67,6 +74,7 @@ class SettingActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun renderModel(model: AlarmDisplayModel){
         binding.timeTextView.apply{
             text = model.timeText
@@ -75,6 +83,13 @@ class SettingActivity : AppCompatActivity() {
             isChecked = model.onOff
             // 현재 model을 전역변수로 설정하지 않았다 따라서 버튼에 태그를 달아서 오브젝트를 서정, 불러오기 가능
             tag = model
+            if(isChecked){
+                binding.timeTextView.setTextColor(ContextCompat.getColor(this@SettingActivity,R.color.black))
+                binding.timeText.setTextColor(ContextCompat.getColor(this@SettingActivity,R.color.black))
+            }else{
+                binding.timeTextView.setTextColor(ContextCompat.getColor(this@SettingActivity,R.color.graycc))
+                binding.timeText.setTextColor(ContextCompat.getColor(this@SettingActivity,R.color.graycc))
+            }
         }
     }
 
@@ -121,15 +136,17 @@ class SettingActivity : AppCompatActivity() {
         return model
     }
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private fun initOnOffButton() {
         val onOffButton = binding.switchButton
-
         onOffButton.setOnClickListener {
             val model = it.tag as? AlarmDisplayModel ?: return@setOnClickListener
             val newModel = saveAlarm(model.hour, model.minute, binding.switchButton.isChecked)
             renderModel(newModel)
             if(newModel.onOff){
                 // 알람이 켜진 경우 -> 알람을 등록
+                binding.timeTextView.setTextColor(ContextCompat.getColor(this,R.color.black))
+                binding.timeText.setTextColor(ContextCompat.getColor(this,R.color.black))
                 val calendar = Calendar.getInstance().apply{
                     set(Calendar.HOUR_OF_DAY, newModel.hour)
                     set(Calendar.MINUTE, newModel.minute)
@@ -151,6 +168,8 @@ class SettingActivity : AppCompatActivity() {
             }else{
                 // 알람이 꺼진 경우 -> 알람 삭제
                 cancelAlarm()
+                binding.timeTextView.setTextColor(ContextCompat.getColor(this,R.color.graycc))
+                binding.timeText.setTextColor(ContextCompat.getColor(this,R.color.graycc))
             }
         }
     }
