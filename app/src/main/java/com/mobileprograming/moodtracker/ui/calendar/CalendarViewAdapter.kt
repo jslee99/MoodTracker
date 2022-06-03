@@ -42,13 +42,15 @@ class CalendarViewAdapter(val DiaryList : ArrayList<Diary>) : RecyclerView.Adapt
             val date = Date(DiaryList[position].date)
             val dayString = sdf.format(date)
             holder.binding.calendarCellDayText.text = dayString
-            if(DiaryList[position].mood > -1){
+//            if(DiaryList[position].mood > -1){
+            if(DiaryList[position].date > -1){
                 when(DiaryList[position].mood){
                     0 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.sohappy_0)
                     1 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.happy_1)
                     2 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.ok_2)
-                    3 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.angry_3)
-                    4 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.sad_4)
+                    3 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.sad_4)
+                    4 -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.angry_3)
+                    else -> holder.binding.calendarCellMoodImage.setImageResource(R.drawable.no_mood)
                 }
             }
         }else{
