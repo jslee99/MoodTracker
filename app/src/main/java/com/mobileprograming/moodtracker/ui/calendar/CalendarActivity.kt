@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.setPadding
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mobileprograming.moodtracker.data.Diary
 import com.mobileprograming.moodtracker.data.MyDBHelper
@@ -48,6 +49,8 @@ class CalendarActivity : AppCompatActivity() {
 
         setMonthYearTextView(localDate)
         setRecyclerView(localDate)
+
+        initEmoticon()
 
     }
 
@@ -124,6 +127,84 @@ class CalendarActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getTime(): Long {
+        val localDate = LocalDate.now()
+        val y = localDate.year
+        val m = localDate.monthValue
+        val d = localDate.dayOfMonth
+        val sdf = SimpleDateFormat("yyyy.MM.dd")
+        val formatStr = y.toString() + "." + m.toString() + "." + d.toString()
+        val date = sdf.parse(formatStr)
+        val ldate = date.time
+        return ldate
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun initEmoticon(){
+        initDB()
+        val ldate = getTime()
+        var diary = myDBHelper.getDiary(ldate)
+        if (diary.isNotEmpty()) {
+            val mood = diary[0].mood
+            emoticonSelector(mood)
+        }
+
+    }
+
+    private fun emoticonSelector(mood: Int){
+
+        val selected: Int = (2 * resources.displayMetrics.density).toInt()
+        val notSelected: Int = (5 * resources.displayMetrics.density).toInt()
+
+        with(binding) {
+            when (mood) {
+                0 -> {
+                    activityCalendarMood0.setPadding(selected)
+                    activityCalendarMood1.setPadding(notSelected)
+                    activityCalendarMood2.setPadding(notSelected)
+                    activityCalendarMood3.setPadding(notSelected)
+                    activityCalendarMood4.setPadding(notSelected)
+                }
+                1 -> {
+                    activityCalendarMood0.setPadding(notSelected)
+                    activityCalendarMood1.setPadding(selected)
+                    activityCalendarMood2.setPadding(notSelected)
+                    activityCalendarMood3.setPadding(notSelected)
+                    activityCalendarMood4.setPadding(notSelected)
+                }
+                2 -> {
+                    activityCalendarMood0.setPadding(notSelected)
+                    activityCalendarMood1.setPadding(notSelected)
+                    activityCalendarMood2.setPadding(selected)
+                    activityCalendarMood3.setPadding(notSelected)
+                    activityCalendarMood3.setPadding(notSelected)
+                }
+                3 -> {
+                    activityCalendarMood0.setPadding(notSelected)
+                    activityCalendarMood1.setPadding(notSelected)
+                    activityCalendarMood2.setPadding(notSelected)
+                    activityCalendarMood3.setPadding(selected)
+                    activityCalendarMood4.setPadding(notSelected)
+                }
+                4 -> {
+                    activityCalendarMood0.setPadding(notSelected)
+                    activityCalendarMood1.setPadding(notSelected)
+                    activityCalendarMood2.setPadding(notSelected)
+                    activityCalendarMood3.setPadding(notSelected)
+                    activityCalendarMood4.setPadding(selected)
+                }
+                else -> {
+                    activityCalendarMood0.setPadding(notSelected)
+                    activityCalendarMood1.setPadding(notSelected)
+                    activityCalendarMood2.setPadding(notSelected)
+                    activityCalendarMood3.setPadding(notSelected)
+                    activityCalendarMood4.setPadding(notSelected)
+                }
+            }
+        }
+    }
+
     private fun initRecyclerVIew(){
         //empty adapter 연결, layoutmanager 설정
         adapter = CalendarViewAdapter(ArrayList<Diary>())
@@ -151,7 +232,7 @@ class CalendarActivity : AppCompatActivity() {
         for(i in 1..42){
             if(dayOfWeek <= i && i < dayOfWeek + daysInMonth){
                 DaysInMonthArray.add(i - dayOfWeek + 1)
-            }else{
+            } else {
                 DaysInMonthArray.add(-1)
             }
         }
@@ -170,6 +251,8 @@ class CalendarActivity : AppCompatActivity() {
     //selectedDate에 따라 calendar recycler view 변경
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setRecyclerView(selectedDate: LocalDate){
+
+        initEmoticon()
         //set adapter.DiaryListfd
         adapter.DiaryList.clear()
         //selectedDate의 month, year을 string형태로 변환
