@@ -50,11 +50,12 @@ class WritingActivity : AppCompatActivity() {
         binding = ActivityWritingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initDB()
-        initLayout()
 
         // 아래 함수를 통해 무드를 전달받습니다.
-        mood = intent.getIntExtra(IntentKey.MOOD_KEY,0)
+        mood = intent.getIntExtra(IntentKey.MOOD_KEY, 0)
         emoticonSelector(mood)
+
+        initLayout()
 
     }
 
@@ -112,28 +113,26 @@ class WritingActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getDiary() {
         with(binding) {
-            myDBHelper = MyDBHelper(this@WritingActivity)
             val ldate = saveTime()
             var diary = myDBHelper.getDiary(ldate)
             if (diary.isNotEmpty()) {
                 mood = diary[0].mood
+                mood = intent.getIntExtra(IntentKey.MOOD_KEY, mood)
                 emoticonSelector(mood)
 
                 diaryText.setText(diary[0].content)
 
-                val imagebyte = diary[0].image
-                if (imagebyte != null) {
+                byteArray = diary[0].image
+                if (byteArray != null) {
                     diaryPhoto.setImageBitmap(
                         BitmapFactory.decodeByteArray(
-                            imagebyte,
+                            byteArray,
                             0,
-                            imagebyte.size
+                            byteArray!!.size
                         )
                     )
                     diaryPhoto.setAdjustViewBounds(true);
                 }
-
-
             }
         }
 
