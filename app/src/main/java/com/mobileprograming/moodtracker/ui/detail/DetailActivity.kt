@@ -34,8 +34,9 @@ class DetailActivity : AppCompatActivity() {
                 when(imageNum){
                     1 -> emotionDraw = R.drawable.happy_1
                     2 -> emotionDraw=R.drawable.ok_2
-                    3 -> emotionDraw=R.drawable.angry_3
-                    4 -> emotionDraw=R.drawable.sad_4
+                    3 -> emotionDraw=R.drawable.sad_4
+                    4 -> emotionDraw=R.drawable.angry_3
+
                 }
                 if(emotionDraw!=null){
                     emotionImage.setImageResource(emotionDraw)

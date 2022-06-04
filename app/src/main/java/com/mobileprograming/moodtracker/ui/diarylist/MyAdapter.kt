@@ -1,8 +1,6 @@
 package com.mobileprograming.moodtracker.ui.diarylist
 
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +11,6 @@ import com.mobileprograming.moodtracker.databinding.DiarylistRowBinding
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import android.graphics.Bitmap as Bitmap1
 
 class MyAdapter (val diaryList:ArrayList<Diary>)
     :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
@@ -32,8 +29,8 @@ class MyAdapter (val diaryList:ArrayList<Diary>)
         when (imageNum) {
             1 -> emotionDraw = R.drawable.happy_1
             2 -> emotionDraw = R.drawable.ok_2
-            3 -> emotionDraw = R.drawable.angry_3
-            4 -> emotionDraw = R.drawable.sad_4
+            3 -> emotionDraw = R.drawable.sad_4
+            4 -> emotionDraw = R.drawable.angry_3
         }
         holder.binding.emotionImage.setImageResource(emotionDraw!!)
         val dateStr= Date(diaryList[position].date)
@@ -49,6 +46,8 @@ class MyAdapter (val diaryList:ArrayList<Diary>)
                     imagebyte.size
                 )
             )
+            holder.binding.diaryImage.visibility = View.VISIBLE
+            holder.binding.diaryImage.setAdjustViewBounds(true);
         }
     }
 
