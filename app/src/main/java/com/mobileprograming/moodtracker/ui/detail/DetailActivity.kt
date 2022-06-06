@@ -2,6 +2,7 @@ package com.mobileprograming.moodtracker.ui.detail
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mobileprograming.moodtracker.R
 import com.mobileprograming.moodtracker.data.MyDBHelper
@@ -54,6 +55,9 @@ class DetailActivity : AppCompatActivity() {
                             imagebyte.size
                         )
                     )
+                    diaryImage.visibility= View.VISIBLE
+                    diaryImage.clipToOutline=true
+                    diaryImage.setAdjustViewBounds(true)
                 }
                 diaryContent.text=diary[0].content
             }else{
