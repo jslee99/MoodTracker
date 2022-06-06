@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MyAdapter (val diaryList:ArrayList<Diary>)
+class MyAdapter (val diaryList:List<Diary>)
     :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
         inner class ViewHolder(val binding:DiarylistRowBinding):RecyclerView.ViewHolder(binding.root)
         {}
@@ -47,7 +47,10 @@ class MyAdapter (val diaryList:ArrayList<Diary>)
                 )
             )
             holder.binding.diaryImage.visibility = View.VISIBLE
+            holder.binding.diaryImage.clipToOutline=true
             holder.binding.diaryImage.setAdjustViewBounds(true);
+        }else{
+            holder.binding.diaryImage.visibility = View.GONE
         }
     }
 
