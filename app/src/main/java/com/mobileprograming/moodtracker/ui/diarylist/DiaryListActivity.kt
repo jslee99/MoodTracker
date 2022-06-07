@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobileprograming.moodtracker.data.Diary
 import com.mobileprograming.moodtracker.data.MyDBHelper
 import com.mobileprograming.moodtracker.databinding.ActivityDiaryListBinding
@@ -37,6 +39,10 @@ class DiaryListActivity : AppCompatActivity() {
             }
         }
         myadapter=MyAdapter(exceptNullList.reversed().toMutableList())
+        diaryListBinding.recyclerView.addItemDecoration(
+            DividerItemDecoration(this,
+            LinearLayoutManager.VERTICAL)
+        )
         diaryListBinding.recyclerView.adapter=myadapter // 나중에 일기를 쓰고 나서 데이더가 업데이트 되었을때 오늘분의 일기가 표시될지 고려해봐야됨
         diaryListBinding.closeButton.setOnClickListener {
             onBackPressed()
