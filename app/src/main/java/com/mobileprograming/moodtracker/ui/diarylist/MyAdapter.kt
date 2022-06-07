@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MyAdapter (val diaryList:List<Diary>)
+class MyAdapter (val diaryList:MutableList<Diary>)
     :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
         inner class ViewHolder(val binding:DiarylistRowBinding):RecyclerView.ViewHolder(binding.root)
         {}
