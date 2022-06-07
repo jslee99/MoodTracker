@@ -1,9 +1,11 @@
 package com.mobileprograming.moodtracker.ui.diarylist
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,12 +20,13 @@ class DiaryListActivity : AppCompatActivity() {
     private val database=MyDBHelper(this)
     private var myadapter:MyAdapter?=null
     private var resultLauncher: ActivityResultLauncher<Intent>? = null
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         diaryListBinding= ActivityDiaryListBinding.inflate(layoutInflater)
         setContentView(diaryListBinding.root)
         resultLauncher=registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            update()
+            myadapter?.updateData(database)
         }
         init()
     }
@@ -31,10 +34,10 @@ class DiaryListActivity : AppCompatActivity() {
     {
 
         var diaryList= database.getAllDiary()
-        val exceptNullList=ArrayList<Diary>() // content내용이 비어있고 기분만 저장되어있는 경우 -> 애초에 list에서 제외 시켜 보여주지 않음
+        val exceptNullList=ArrayList<Diary>()
         val i:Int=0
         for(diary in diaryList){
-            if(diary.content!=null){
+            if(diary.content!="" || diary.image!=null){ //사진, 일기 내용 둘 다 없으면 recycler 뷰에 뜨지 않음
                 exceptNullList.add(diary)
             }
         }
@@ -43,7 +46,7 @@ class DiaryListActivity : AppCompatActivity() {
             DividerItemDecoration(this,
             LinearLayoutManager.VERTICAL)
         )
-        diaryListBinding.recyclerView.adapter=myadapter // 나중에 일기를 쓰고 나서 데이더가 업데이트 되었을때 오늘분의 일기가 표시될지 고려해봐야됨
+        diaryListBinding.recyclerView.adapter=myadapter
         diaryListBinding.closeButton.setOnClickListener {
             onBackPressed()
         }
@@ -51,10 +54,5 @@ class DiaryListActivity : AppCompatActivity() {
             val intent= Intent(this, WritingActivity::class.java)
             resultLauncher?.launch(intent)
         }
-    }
-    private fun update()
-    {
-        myadapter!!.diaryList[0]=database.getDiary(myadapter!!.diaryList[0].date)[0]
-        myadapter!!.notifyItemChanged(0)
     }
 }
