@@ -142,7 +142,7 @@
     <ImageView
         android:id="@+id/diaryPhoto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="140dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="12dp"
         android:adjustViewBounds="true"
