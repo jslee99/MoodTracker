@@ -1,14 +1,18 @@
 package com.mobileprograming.moodtracker.ui.diarylist
 
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.mobileprograming.moodtracker.R
 import com.mobileprograming.moodtracker.data.Diary
+import com.mobileprograming.moodtracker.data.MyDBHelper
 import com.mobileprograming.moodtracker.databinding.DiarylistRowBinding
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -56,5 +60,36 @@ class MyAdapter (val diaryList:MutableList<Diary>)
 
     override fun getItemCount(): Int {
         return diaryList.size
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun updateData(database:MyDBHelper)
+    {
+        val localDate = LocalDate.now()
+        val y = localDate.year
+        val m = localDate.monthValue
+        val d = localDate.dayOfMonth
+        val sdf = SimpleDateFormat("yyyy.MM.dd")
+        val formatStr = y.toString() + "." + m.toString() + "." + d.toString()
+        val date = sdf.parse(formatStr)
+        val ldate = date.time
+        when(diaryList[0].date){
+            ldate -> {
+                diaryList[0]=database.getDiary(ldate)[0]
+                if(diaryList[0].content!=""||diaryList[0].image!=null){
+                    notifyItemChanged(0)
+                }else{
+                    diaryList.removeAt(0)
+                    notifyItemRemoved(0)
+                }
+            }
+            else -> {
+                val checkDiary=database.getDiary(ldate)[0]
+                if(checkDiary.content!=""||checkDiary.image!=null) {
+                    diaryList.add(0,checkDiary)
+                    notifyItemInserted(0)
+                }
+            }
+        }
+
     }
 }
